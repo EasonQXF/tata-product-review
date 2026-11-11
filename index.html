@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#f5f5f7">
+  <title>商品上架审核 | TaTa</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="TaTa 商品审核首页">TaTa<span>商品审核</span></a>
+      <div class="header-actions">
+        <button class="quiet-button" id="reviewerButton" type="button">填写审核人</button>
+        <button class="dark-button compact" id="downloadButton" type="button">下载审核结果</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">PRODUCT REVIEW</p>
+      <h1>看图片，直接判断<br>是否上架。</h1>
+      <p class="hero-copy">所有操作都在当前页面完成。点击商品卡片上的按钮即可保存判断，完成后下载结果发给负责人。</p>
+    </section>
+
+    <section class="progress-panel" aria-label="审核进度">
+      <div class="progress-copy">
+        <span>总体进度</span>
+        <strong id="progressText">正在载入商品…</strong>
+      </div>
+      <div class="progress-track" aria-hidden="true"><i id="progressBar"></i></div>
+      <div class="stats">
+        <button class="stat active" type="button" data-quick-status="pending"><strong id="pendingCount">—</strong><span>待判断</span></button>
+        <button class="stat" type="button" data-quick-status="approved"><strong id="approvedCount">—</strong><span>确认上架</span></button>
+        <button class="stat" type="button" data-quick-status="needs_changes"><strong id="needsCount">—</strong><span>需补充</span></button>
+        <button class="stat" type="button" data-quick-status="rejected"><strong id="rejectedCount">—</strong><span>不上架</span></button>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="商品筛选">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="搜索货号、款式或品牌">
+      </div>
+      <select id="categoryFilter" aria-label="筛选品类"><option value="">全部品类</option></select>
+      <select id="brandFilter" aria-label="筛选品牌"><option value="">全部品牌</option></select>
+      <select id="statusFilter" aria-label="筛选审核状态">
+        <option value="pending">待判断</option>
+        <option value="approved">确认上架</option>
+        <option value="needs_changes">需补充</option>
+        <option value="rejected">不上架</option>
+        <option value="all">全部状态</option>
+      </select>
+      <button class="quiet-button" id="clearFilters" type="button">清空筛选</button>
+    </section>
+
+    <section class="results-heading">
+      <div><span id="resultCount">—</span> 件商品</div>
+      <p id="saveHint">判断结果会保存在当前设备</p>
+    </section>
+
+    <section class="product-grid" id="productGrid" aria-live="polite">
+      <div class="loading-card">正在载入商品，请稍候…</div>
+    </section>
+
+    <nav class="pagination" aria-label="商品分页">
+      <button id="previousPage" type="button">上一页</button>
+      <span id="pageInfo">第 1 页</span>
+      <button id="nextPage" type="button">下一页</button>
+    </nav>
+  </main>
+
+  <dialog id="reviewerDialog">
+    <form method="dialog" id="reviewerForm">
+      <button class="dialog-close" value="cancel" aria-label="关闭" type="submit">×</button>
+      <p class="eyebrow">REVIEWER</p>
+      <h2>请填写你的姓名</h2>
+      <p>审核记录会带上姓名，方便负责人后续确认。</p>
+      <label for="reviewerInput">审核人</label>
+      <input id="reviewerInput" maxlength="30" autocomplete="name" placeholder="例如：小林" required>
+      <button class="dark-button" value="default" type="submit">开始审核</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"><span id="toastText"></span><button id="undoButton" type="button">撤销</button></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
